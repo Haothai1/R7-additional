@@ -23,11 +23,18 @@ RSpec.describe "CustomersControllers", type: :request do
   end
 
   describe "get new_customer_path" do
-    it "renders the :new template"
+    it "renders the :new template" do
+      get new_customer_path
+      expect(response).to render_template(:new)
+    end
   end
 
   describe "get edit_customer_path" do
-    it "renders the :edit template"
+    it "renders the :edit template" do
+      customer = FactoryBot.create(:customer)
+      get edit_customer_path(id: customer.id)
+      expect(response).to render_template(:edit)
+    end
   end
 
   describe "post customers_path with valid data" do
@@ -48,14 +55,32 @@ RSpec.describe "CustomersControllers", type: :request do
   end
 
   describe "put customer_path with valid data" do
-    it "updates an entry and redirects to the show path for the customer"
+    it "updates an entry and redirects to the show path for the customer" do
+      customer = FactoryBot.create(:customer)
+      valid_attributes = { first_name: "Updated", last_name: "Name" }
+      put customer_path(id: customer.id), params: { customer: valid_attributes }
+      customer.reload
+      expect(customer.first_name).to eq("Updated")
+      expect(response).to redirect_to customer_path(id: customer.id)
+    end
   end
 
   describe "put customer_path with invalid data" do
-    it "does not update the customer record or redirect"
+    it "does not update the customer record or redirect" do
+      customer = FactoryBot.create(:customer)
+      invalid_attributes = { first_name: nil }
+      put customer_path(id: customer.id), params: { customer: invalid_attributes }
+      customer.reload
+      expect(customer.first_name).to_not eq(nil)
+      expect(response).to render_template(:edit)
+    end
   end
 
   describe "delete a customer record" do
-    it "deletes a customer record"
+    it "deletes a customer record" do
+      customer = FactoryBot.create(:customer)
+      expect { delete customer_path(id: customer.id) }.to change(Customer, :count).by(-1)
+      expect(response).to redirect_to customers_path
+    end
   end
 end
