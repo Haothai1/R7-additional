@@ -72,3 +72,11 @@ group :test do
 end
 
 gem 'email_validator'
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rails-controller-testing'
+  gem 'rexml'
+end
