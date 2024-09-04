@@ -1,9 +1,39 @@
-<h1>New customer</h1>
+   <h1>New Customer</h1>
 
-<%= render "form", customer: @customer %>
+   <%= form_with(model: @customer, local: true) do |form| %>
+     <% if @customer.errors.any? %>
+       <div id="error_explanation">
+         <h2><%= pluralize(@customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
 
-<br>
+         <ul>
+           <% @customer.errors.full_messages.each do |message| %>
+             <li><%= message %></li>
+           <% end %>
+         </ul>
+       </div>
+     <% end %>
 
-<div>
-  <%= link_to "Back to customers", customers_path %>
-</div>
+     <div class="field">
+       <%= form.label :first_name %>
+       <%= form.text_field :first_name %>
+     </div>
+
+     <div class="field">
+       <%= form.label :last_name %>
+       <%= form.text_field :last_name %>
+     </div>
+
+     <div class="field">
+       <%= form.label :phone %>
+       <%= form.text_field :phone %>
+     </div>
+
+     <div class="field">
+       <%= form.label :email %>
+       <%= form.email_field :email %>
+     </div>
+
+     <div class="actions">
+       <%= form.submit %>
+     </div>
+   <% end %>

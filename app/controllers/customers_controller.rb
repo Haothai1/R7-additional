@@ -25,10 +25,9 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
     if @customer.save
-      flash.notice = "The customer record was created successfully."
-      redirect_to @customer
+      redirect_to @customer, notice: 'Customer was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 

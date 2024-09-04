@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   root to: 'customers#index' #root access goes first
   resources :customers
+  resources :orders
 end

@@ -10,3 +10,7 @@ class Customer < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 end
+
+class Customer < ApplicationRecord
+  has_many :orders
+end
