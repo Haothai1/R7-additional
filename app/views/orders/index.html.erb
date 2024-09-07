@@ -10,16 +10,27 @@
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.product_name %></td>
-        <td><%= order.product_count %></td>
-        <td><%= order.customer.full_name %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <div class="container-fluid row">
+  <% @orders.each do |order| %>
+    <div class="col-sm-4">
+      <div class="card border border-success p-1 mt-3" style="width: 18rem;">
+        <div class="card-header">
+          <%= order.product_name %>
+        </div>
+        <div class="card-body">
+          <p>Customer: <%= order.customer.full_name %></p>
+          <p>Product Count: <%= order.product_count %></p>
+        </div>
+        <div class="card-footer">
+          <%= link_to 'Edit', edit_order_path(order), class: 'btn btn-warning' %>
+          <%= button_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
   </tbody>
 </table>
 <%= link_to 'New Order', new_order_path %>
+<%= link_to 'Back', customers_path %>

@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+@import "bootstrap";
+@import "font-awesome";
+
+
+:root {
+  --bs-body-bg: #e7a3f0;
+}
+
+.banner-background {
+  background-image: url('customer.png');
+  background-size: cover;
+}
+
+@font-face {
+  font-family: 'canterbury.regular';
+  src: url('canterbury.regular');
+}
+
+.banner-background {
+  font-family: 'canterbury.regular';
+}
+
+

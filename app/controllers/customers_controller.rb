@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
+  rescue_from ActiveRecord::InvalidForeignKey, with: :catch_invalid_foreign_key
 
   before_action :set_customer, only: %i[ show edit update destroy ]
 
@@ -42,13 +43,22 @@ class CustomersController < ApplicationController
     end
   end
 
+# Enable destory if they do not have orders
 
   # DELETE /customers/1 or /customers/1.json
+
   def destroy
-    @customer.destroy
+    begin
+      @customer.destroy
+      flash[:success] = "The customer record was successfully deleted."
+    rescue ActiveRecord::InvalidForeignKey
+      flash[:error] = "The customer record could not be deleted because the customer has associated orders."
+    rescue StandardError => e
+      flash[:error] = "An error occurred while deleting the customer: #{e.message}"
+    end
 
     respond_to do |format|
-      format.html { redirect_to customers_url, notice: "Customer was successfully destroyed." }
+      format.html { redirect_to customers_url }
       format.json { head :no_content }
     end
   end
@@ -64,9 +74,17 @@ class CustomersController < ApplicationController
       params.require(:customer).permit(:first_name, :last_name, :phone, :email)
     end
 
+    # Useful to handle all/different errors: https://rollbar.com/blog/handle-exceptions-in-ruby-with-rescue/, https://patrickkarsh.medium.com/ruby-refinements-unlocking-the-power-of-guard-clauses-for-streamlined-programming-5b60b2f2e6e
     def catch_not_found(e)
       Rails.logger.debug("We had a not found exception.")
+      # add rescue ActiveRecord::InvalidForeignKey to catch all foriegn key errors
       flash.alert = e.to_s
       redirect_to customers_path
+    end
+
+    def catch_invalid_foreign_key(e)
+      Rails.logger.debug("Invalid foreign key exception: #{e.message}")
+      flash[:error] = "This record cannot be deleted because it has associated data."
+      redirect_back(fallback_location: customers_path)
     end
 end
