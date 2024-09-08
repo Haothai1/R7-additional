@@ -13,8 +13,8 @@
   <body>
     <%# Banner start %>
     <div class="container-fluid p-5 bg-light text-center banner-background">
-      <h1>My Application</h1>
-      <p>Customers</p>
+      <h1>Manage Customer</h1>
+      <p>Orders</p>
     </div>
     <%# Bootstrap Alerts %>
     <% if flash[:notice] %>
@@ -57,7 +57,7 @@
   </div>
 </nav>
     <%# Navbar end %>
-    <div class="container-fluid">
+    <div class="container-fluid"> <!-- Add this wrapper div -->
       <%= yield %>
     </div>
   </body>

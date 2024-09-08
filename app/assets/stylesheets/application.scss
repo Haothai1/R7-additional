@@ -18,7 +18,7 @@
 
 
 :root {
-  --bs-body-bg: #e7a3f0;
+  --bs-body-bg: #f3f3f3;
 }
 
 .banner-background {
@@ -34,5 +34,54 @@
 .banner-background {
   font-family: 'canterbury.regular';
 }
+
+body, html {
+  background-color: #ffffff !important;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Added subtle shadow for depth */
+}
+
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.form-control {
+  border-radius: 10px;
+}
+
+.form-floating label {
+  padding-left: 15px;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: #007bff;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-outline-info,
+.btn-outline-secondary {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+
 
 

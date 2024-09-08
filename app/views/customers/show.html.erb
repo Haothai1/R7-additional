@@ -3,10 +3,16 @@
 <%= render @customer %>
 
 <div>
-  <%= link_to "Edit this customer", edit_customer_path(@customer) %> |
-  <%= link_to "Back to customers", customers_path %>
+  <p><strong>Email:</strong> <%= @customer.email %></p>
+  <p><strong>Phone:</strong> <%= @customer.phone %></p>
+</div>
 
-  <%= button_to "Destroy this customer", @customer, method: :delete %>
+<div>
+  <%= link_to "Edit", edit_customer_path(@customer), class: 'btn btn-primary' %>
+  <%= link_to "Back to Customers", customers_path, class: 'btn btn-secondary' %>
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCustomerModal-<%= @customer.id %>">
+    Delete Customer
+  </button>
 </div>
 
 <h1>Customer: <%= @customer.full_name %></h1>

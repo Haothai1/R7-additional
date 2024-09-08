@@ -1,36 +1,35 @@
 <h1>Orders</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Product Name</th>
-      <th>Product Count</th>
-      <th>Customer</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <div class="container-fluid row">
-  <% @orders.each do |order| %>
-    <div class="col-sm-4">
-      <div class="card border border-success p-1 mt-3" style="width: 18rem;">
-        <div class="card-header">
-          <%= order.product_name %>
-        </div>
-        <div class="card-body">
-          <p>Customer: <%= order.customer.full_name %></p>
-          <p>Product Count: <%= order.product_count %></p>
-        </div>
-        <div class="card-footer">
-          <%= link_to 'Edit', edit_order_path(order), class: 'btn btn-warning' %>
-          <%= button_to 'Delete', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<div class="container-fluid">
+  <div class="row">
+    <% @orders.each do |order| %>
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+        <div class="card border border-2 border-success p-1 mt-3" style="width: 18rem;">
+          <div class="card-header">
+            <h5 class="card-title"><%= order.product_name %></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Customer: <%= order.customer.full_name %></p>
+            <p class="card-text">Quantity: <%= order.product_count %></p>
+          </div>
+          <div class="card-footer">
+            <%= link_to 'View', order, class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Edit', edit_order_path(order), class: 'btn btn-sm btn-secondary' %>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteOrderModal-<%= order.id %>" 
+                    data-id="<%= order.id %>" 
+                    data-customer="<%= order.customer.full_name %>" 
+                    data-productname="<%= order.product_name %>" 
+                    data-productcount="<%= order.product_count %>">
+              Delete
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 
-  </tbody>
-</table>
-<%= link_to 'New Order', new_order_path %>
-<%= link_to 'Back', customers_path %>
+<%= link_to 'New Order', new_order_path, class: 'btn btn-primary mt-3', data: { bs_toggle: 'tooltip', bs_placement: 'top', bs_title: 'Create a new order' } %>
+<%= link_to 'Back', customers_path, class: 'btn btn-secondary mt-3' %>
+
+<%= render 'deleteModal', orders: @orders %>

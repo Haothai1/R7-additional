@@ -35,16 +35,13 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    @customer = Customer.find(params[:id])
-    begin
-      @customer.destroy
-      flash.notice = "The customer record was successfully deleted."
-    rescue ActiveRecord::InvalidForeignKey
-      flash.notice = "That customer record could not be deleted, because the customer has orders."
+    @order = Order.find(params[:id])
+    @order.destroy
+    respond_to do |format|
+      format.html { redirect_to orders_url, notice: 'Order was successfully deleted.' }
+      format.json { head :no_content }
     end
-    redirect_to customers_url
   end
-
 
   private
 
