@@ -1,0 +1,6 @@
+<h1>Order: <%= @order.product_name %></h1>
+<p>Product Count: <%= @order.product_count %></p>
+<p>Customer: <%= @order.customer.full_name %></p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h2 class="card-title text-center mb-4">Edit Customer</h2>
+          
+          <%= form_with(model: @customer, local: true, class: "needs-validation") do |form| %>
+            <div class="form-floating mb-3">
+              <%= form.text_field :first_name, class: "form-control", placeholder: "First name", required: true %>
+              <%= form.label :first_name, class: "form-label" %>
+            </div>
+            
+            <div class="form-floating mb-3">
+              <%= form.text_field :last_name, class: "form-control", placeholder: "Last name", required: true %>
+              <%= form.label :last_name, class: "form-label" %>
+            </div>
+            
+            <div class="form-floating mb-3">
+              <%= form.telephone_field :phone, class: "form-control", placeholder: "Phone", required: true %>
+              <%= form.label :phone, class: "form-label" %>
+            </div>
+            
+            <div class="form-floating mb-3">
+              <%= form.email_field :email, class: "form-control", placeholder: "Email", required: true %>
+              <%= form.label :email, class: "form-label" %>
+            </div>
+            
+            <%= form.submit "Update Customer", class: "btn btn-primary w-100 py-2 mt-3" %>
+          <% end %>
+        </div>
+      </div>
+      
+      <div class="mt-3 d-flex justify-content-between">
+        <%= link_to "Show this customer", @customer, class: "btn btn-outline-info" %>
+        <%= link_to "Back to customers", customers_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
